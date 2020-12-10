@@ -1,0 +1,21 @@
+---
+- name: ファイルの生成と取得
+  hosts: windows
+  tasks:
+    - name: フォルダの作成
+      ansible.windows.win_file:
+        path: C:\Users\Administrator\Ansible_File
+        state: directory
+    - name: ファイルの作成
+      ansible.windows.win_file:
+        path: C:\Users\Administrator\Ansible_File\Ansible_Test.csv
+        state: touch
+    - name: 書き込み
+      ansible.windows.win_copy:
+        content: "testfile from ansible"
+        dest: C:\Users\Administrator\Ansible_File\Ansible_Test.csv
+    - name: ファイルの取得 
+      fetch:
+        src: C:\Users\Administrator\Ansible_File\Ansible_Test.csv
+        dest: ./output_file/
+        flat: yes

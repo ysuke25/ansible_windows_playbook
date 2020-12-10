@@ -1,0 +1,11 @@
+---
+- name: ホスト名の変更と再起動
+  hosts: windows
+  tasks:
+    - name: ホスト名の変更
+      ansible.windows.win_hostname:
+        name: ansible-[名前]
+      register: res
+    - name: 必要に応じて再起動
+      ansible.windows.win_reboot:
+      when: res.reboot_required

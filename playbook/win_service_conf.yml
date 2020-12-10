@@ -1,0 +1,14 @@
+---
+- name: サービスのインストールとスタート
+  hosts: windows
+  tasks:
+    - name: IISをインストール
+      ansible.windows.win_feature:
+        name: Web-Server
+        state: present
+    - name: IISサービスをスタート
+      ansible.windows.win_service:
+        name: W3Svc
+        # 停止する場合は「stopped」
+        # state: stopped
+        state: started
